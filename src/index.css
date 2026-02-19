@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: 15 157 153;
+    --color-secondary: 240 176 0;
+    --color-accent: 239 68 68;
+  }
+  
+  * {
+    @apply border-neutral-200;
+  }
+  
+  body {
+    @apply bg-neutral-50 text-neutral-900 font-body;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-semibold;
+  }
+}
+
+@layer components {
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-neutral-100;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary-400 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary-500;
+  }
+  
+  /* Button Variants */
+  .btn-primary {
+    @apply bg-primary-500 text-white px-6 py-3 rounded-lg font-medium 
+           hover:bg-primary-600 active:bg-primary-700 
+           transition-all duration-200 shadow-skora hover:shadow-skora-lg
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary-500 text-neutral-900 px-6 py-3 rounded-lg font-medium 
+           hover:bg-secondary-600 active:bg-secondary-700 
+           transition-all duration-200 shadow-warm
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-primary-500 text-primary-600 px-6 py-3 rounded-lg font-medium 
+           hover:bg-primary-50 active:bg-primary-100 
+           transition-all duration-200
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  
+  .btn-ghost {
+    @apply text-primary-600 px-6 py-3 rounded-lg font-medium 
+           hover:bg-primary-50 active:bg-primary-100 
+           transition-all duration-200
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  
+  /* Input Styles */
+  .input-field {
+    @apply w-full px-4 py-3 rounded-lg border-2 border-neutral-200 
+           focus:border-primary-500 focus:ring-2 focus:ring-primary-100 
+           outline-none transition-all duration-200
+           placeholder:text-neutral-400;
+  }
+  
+  .input-error {
+    @apply border-accent-500 focus:border-accent-500 focus:ring-accent-100;
+  }
+  
+  /* Card Styles */
+  .card {
+    @apply bg-white rounded-xl shadow-skora p-6 
+           border border-neutral-100
+           transition-all duration-200;
+  }
+  
+  .card-hover {
+    @apply hover:shadow-skora-lg hover:-translate-y-1;
+  }
+  
+  /* Badge Styles */
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+  }
+  
+  .badge-success {
+    @apply bg-green-100 text-green-700;
+  }
+  
+  .badge-warning {
+    @apply bg-secondary-100 text-secondary-700;
+  }
+  
+  .badge-danger {
+    @apply bg-accent-100 text-accent-700;
+  }
+  
+  .badge-info {
+    @apply bg-primary-100 text-primary-700;
+  }
+  
+  /* Table Styles */
+  .table-responsive {
+    @apply overflow-x-auto rounded-lg border border-neutral-200;
+  }
+  
+  .table {
+    @apply w-full text-sm;
+  }
+  
+  .table th {
+    @apply bg-neutral-100 px-4 py-3 text-left font-semibold text-neutral-700;
+  }
+  
+  .table td {
+    @apply px-4 py-3 border-t border-neutral-200;
+  }
+  
+  .table tbody tr:hover {
+    @apply bg-neutral-50;
+  }
+  
+  /* Loading Spinner */
+  .spinner {
+    @apply animate-spin rounded-full border-4 border-neutral-200 border-t-primary-500;
+  }
+  
+  /* Gradient Background */
+  .gradient-primary {
+    @apply bg-gradient-to-br from-primary-500 to-primary-700;
+  }
+  
+  .gradient-secondary {
+    @apply bg-gradient-to-br from-secondary-400 to-secondary-600;
+  }
+  
+  /* Text Gradient */
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+  
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+  
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+}
+
+/* Print Styles for Result Sheets */
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-break-before {
+    page-break-before: always;
+  }
+  
+  .print-break-after {
+    page-break-after: always;
+  }
+  
+  .print-no-break {
+    page-break-inside: avoid;
+  }
+}
