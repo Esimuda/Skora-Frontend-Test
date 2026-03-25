@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+// Use HashRouter for GitHub Pages compatibility.
+// GitHub Pages does not support client-side routing fallback, so HashRouter ensures all routes work.
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ClassicResultSheet } from './templates/ClassicResultSheet';
 import { ModernResultSheet } from './templates/ModernResultSheet';
 import { LoginPage } from './pages/auth/LoginPage';
@@ -7,14 +9,18 @@ import { SignupPage } from './pages/auth/SignupPage';
 import { TeacherDashboard } from './pages/teacher/TeacherDashboard';
 import { StudentsPage } from './pages/teacher/StudentsPage';
 import { SubjectsPage } from './pages/teacher/SubjectsPage';
-import { ScoreEntryPage } from './pages/teacher/ScoreEntryPage';
+import { ScoreEntryPageEnhanced } from './pages/teacher/ScoreEntryPageEnhanced';
 import { PrincipalDashboard } from './pages/principal/PrincipalDashboard';
 import { TeachersPage } from './pages/principal/TeachersPage';
 import { ClassesPage } from './pages/principal/ClassesPage';
 import { SettingsPage } from './pages/principal/SettingsPage';
 import { useAuthStore } from './store/authStore';
 import { StudentResult, School } from './types';
-
+import { CommentsPage } from './pages/teacher/CommentsPage';
+import { SubmitResultsPage } from './pages/teacher/SubmitResultsPage';
+import { ApprovalsPage } from './pages/principal/ApprovalsPage';
+import { DownloadsPage } from './pages/principal/DownloadsPage';
+import { SignupPageEnhanced } from './pages/auth/SignupPageEnhanced';
 // Demo data for preview
 const demoSchool: School = {
   id: 'school-1',
@@ -94,11 +100,11 @@ function App() {
   const { isAuthenticated, user } = useAuthStore();
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         {/* Public Routes */}
         <Route path="/login" element={!isAuthenticated ? <LoginPage /> : <Navigate to={user?.role === 'teacher' ? '/teacher/dashboard' : '/principal/dashboard'} />} />
-        <Route path="/signup" element={!isAuthenticated ? <SignupPage /> : <Navigate to="/principal/dashboard" />} />
+        <Route path="/signup" element={<SignupPageEnhanced />} />
         
         {/* Protected Routes - Teacher */}
         <Route 
@@ -115,7 +121,15 @@ function App() {
         />
         <Route 
           path="/teacher/scores" 
-          element={isAuthenticated && user?.role === 'teacher' ? <ScoreEntryPage /> : <Navigate to="/login" />} 
+          element={isAuthenticated && user?.role === 'teacher' ? <ScoreEntryPageEnhanced /> : <Navigate to="/login" />} 
+        />
+        <Route 
+          path="/teacher/comments" 
+          element={isAuthenticated && user?.role === 'teacher' ? <CommentsPage /> : <Navigate to="/login" />} 
+        />
+        <Route 
+          path="/teacher/submit" 
+          element={isAuthenticated && user?.role === 'teacher' ? <SubmitResultsPage /> : <Navigate to="/login" />} 
         />
         
         {/* Protected Routes - Principal */}
@@ -135,6 +149,14 @@ function App() {
           path="/principal/settings" 
           element={isAuthenticated && user?.role === 'school_admin' ? <SettingsPage /> : <Navigate to="/login" />} 
         />
+        <Route 
+          path="/principal/approvals" 
+          element={isAuthenticated && user?.role === 'school_admin' ? <ApprovalsPage /> : <Navigate to="/login" />} 
+        />
+        <Route 
+          path="/principal/downloads" 
+          element={isAuthenticated && user?.role === 'school_admin' ? <DownloadsPage /> : <Navigate to="/login" />} 
+        />
         
         {/* Demo Landing Page */}
         <Route path="/demo" element={<DemoLandingPage />} />
@@ -149,7 +171,7 @@ function App() {
           } 
         />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
