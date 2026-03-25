@@ -4,6 +4,7 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/Skora-Frontend-Test/',
   plugins: [react()],
   resolve: {
     alias: {
